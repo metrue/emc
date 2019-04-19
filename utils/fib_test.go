@@ -71,7 +71,7 @@ func TestFibNumbers(t *testing.T) {
 	}
 	for _, c := range cases {
 		res := FibNumbers(c.Input)
-		if reflect.DeepEqual(res, c.Output) {
+		if !reflect.DeepEqual(res, c.Output) {
 			t.Fatalf("should get %v, but got %v", c.Output, res)
 		}
 	}

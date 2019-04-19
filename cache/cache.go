@@ -1,4 +1,4 @@
-package main
+package cache
 
 import (
 	"sync"
@@ -25,4 +25,14 @@ func GetCacheClient() *gocache.Cache {
 		Init()
 	}
 	return cache
+}
+
+func Set(k string, v interface{}) {
+	c := GetCacheClient()
+	c.Set(k, v, gocache.NoExpiration)
+}
+
+func Get(k string) (interface{}, bool) {
+	c := GetCacheClient()
+	return c.Get(k)
 }

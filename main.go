@@ -1,6 +1,9 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/metrue/emc/handlers"
+)
 
 func main() {
 	r := gin.Default()
@@ -9,6 +12,6 @@ func main() {
 			"message": "pong",
 		})
 	})
-	r.GET("/fibonacci", fibonacci)
+	r.GET("/fibonacci", handlers.Fibonacci)
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
