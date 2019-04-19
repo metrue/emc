@@ -1,13 +1,11 @@
 package handlers
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/metrue/emc/cache"
 	"github.com/metrue/emc/utils"
-	gocache "github.com/patrickmn/go-cache"
 )
 
 func Fibonacci(c *gin.Context) {
@@ -19,7 +17,6 @@ func Fibonacci(c *gin.Context) {
 		return
 	}
 	n, err := strconv.ParseInt(num, 10, 64)
-	fmt.Println(err)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": "number is incorrect",
@@ -27,16 +24,13 @@ func Fibonacci(c *gin.Context) {
 		return
 	}
 
-	kache := cache.GetCacheClient()
-	val, ok := kache.Get(num)
+	res, ok := cache.Get(num)
 	if !ok {
-		val = utils.FibNumbers(int(n))
-		kache.Set(num, val, gocache.NoExpiration)
-	} else {
-		fmt.Println("read from cache")
+		res = utils.FibNumbers(int(n))
+		cache.Set(num, res)
 	}
 	c.JSON(200, gin.H{
 		"message": "ok",
-		"data":    val,
+		"data":    res,
 	})
 }
