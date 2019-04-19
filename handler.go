@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	gocache "github.com/patrickmn/go-cache"
 )
 
 func fib(n int) int {
@@ -42,8 +43,16 @@ func fibonacci(c *gin.Context) {
 		return
 	}
 
+	cache := GetCacheClient()
+	val, ok := cache.Get(num)
+	if !ok {
+		val = fibNumbers(int(n))
+		cache.Set(num, val, gocache.NoExpiration)
+	} else {
+		fmt.Println("read from cache")
+	}
 	c.JSON(200, gin.H{
 		"message": "ok",
-		"data":    fibNumbers(int(n)),
+		"data":    val,
 	})
 }
