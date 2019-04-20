@@ -32,6 +32,10 @@ func TestFib(t *testing.T) {
 			Input:  4,
 			Output: 3,
 		},
+		Case{
+			Input:  100000,
+			Output: 2754320626097736315,
+		},
 	}
 	for _, c := range cases {
 		res := Fib(c.Input)
