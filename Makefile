@@ -1,8 +1,11 @@
 clean:
 	rm -rf main
 build:
-	go build main.go handler.go cache.go
+	go build -o fibonacci
 run: build
-	./main
+	./fibonacci
 deploy:
 	echo "deploy"
+docker:
+	docker build -t metrue/fibonacci .
+	docker run -p 8080:8080 metrue/fibonacci
