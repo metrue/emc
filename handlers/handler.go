@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -18,8 +19,9 @@ func Fibonacci(c *gin.Context) {
 	}
 	n, err := strconv.ParseInt(num, 10, 64)
 	if err != nil {
+		msg := fmt.Sprintf("number (%s) is incorrect: %v", num, err)
 		c.JSON(400, gin.H{
-			"message": "number is incorrect",
+			"message": msg,
 		})
 		return
 	}
