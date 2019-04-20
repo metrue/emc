@@ -28,7 +28,7 @@ func Fibonacci(c *gin.Context) {
 
 	res, ok := cache.Get(num)
 	if !ok {
-		res = utils.FibNumbers(int64(n))
+		res = utils.FibNumbers(n)
 		cache.Set(num, res)
 	}
 	c.JSON(200, gin.H{
